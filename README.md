@@ -1,30 +1,23 @@
 # Audio_Analyzer
 
-![audio_visualizer](https://user-images.githubusercontent.com/33841025/39550110-2dd87ea2-4e9b-11e8-8280-04e0b8d379d9.gif)  
+![audio_analyzer](https://user-images.githubusercontent.com/33841025/39551087-98dd15de-4e9e-11e8-8e18-60e4f7b0b3b6.gif)
 
 ※実際はもっと滑らかに動きます:)
 
 ## Description
 
-音楽の音量、周波数帯域に合わせてヴィジュアライズします。
+音楽の音量、周波数帯域を可視化できます
 
 
 ## Demo
 
-[DEMO](http://yamashita-ksk.sakura.ne.jp/canvas/AudioVisualizer.html)
+[DEMO](http://yamashita-ksk.sakura.ne.jp/canvas/AudioAnalyzer.html)
 
 
 
 ## Usage
 
-音楽ファイル(mp3 or wav)をインポート後、画面下部の4つのスライダーでヴィジュアルを調整できます。  
-
-
-**[pattern]** ヴィジュアライズのパターンを変更  
-**[size]** 球体の大きさを変更  
-**[circle1]** 外側の円周の大きさを変更  
-**[circle2]** 内側の円周の大きさを変更。  
-
+音楽ファイル(mp3 or wav)をインポート後、画面下部のスライダーでフォーカス幅を調整できます。  
 
 ## Language
 
