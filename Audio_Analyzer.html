@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Audio Visualizer</title>
+    <script src = "js/jquery-2.1.3.min.js"></script>
+    <style>
+    body{
+      font-family: 'Arial Unicode MS','Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','Arial',;
+      background-color:rgb(70, 70, 70);
+      color:white;
+    }
+    #visualizer{
+          background-color:rgb(29, 29, 29);
+    }
+
+    .sliders{
+      display:flex;
+      justify-content: flex-start;
+      letter-spacing: 2px;
+    }
+    </style>
+    <script>
+
+    </script>
+  </head>
+  <body>
+    <canvas id="visualizer" width="600px" height="600px"></canvas>
+    <div class="sliders">
+      <input id="file" type="file">
+      Interval <input type="range" min="0" max="15" id="color_2">
+    </div>
+    <script>
+        window.onload = function(){
+        var source, animationId;
+        var audioContext = new AudioContext;
+        var fileReader   = new FileReader;
+        var analyser = audioContext.createAnalyser();
+        analyser.fftSize = 2048;
+        analyser.connect(audioContext.destination);
+      　
+        var canvas        = document.getElementById('visualizer');
+        var canvasContext = canvas.getContext('2d');
+        canvas.setAttribute('width', analyser.frequencyBinCount * 1.4);　
+        fileReader.onload = function(){
+          audioContext.decodeAudioData(fileReader.result, function(buffer){
+            if(source) {
+              source.stop();
+              cancelAnimationFrame(animationId);
+            }
+            source = audioContext.createBufferSource();
+            source.buffer = buffer;
+            source.connect(analyser);
+            source.start(0);
+            animationId = requestAnimationFrame(render);
+          });
+        };
+      　
+        document.getElementById('file').addEventListener('change', function(e){
+          fileReader.readAsArrayBuffer(e.target.files[0]);
+        });
+      　
+
+        render = function(){
+          spectrums = new Uint8Array(analyser.frequencyBinCount);
+          analyser.getByteFrequencyData(spectrums);
+          canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+          for(i=0, len=spectrums.length; i<len; i++){
+          canvasContext.beginPath();
+
+          hue = spectrums[i] + 135;
+          let a = $("#color_2").val();
+          canvasContext.fillStyle = 'hsl(' + hue + ', 100%, 50%)';
+          canvasContext.arc(i*a, 600 - spectrums[i] * 2,7.5,0,Math.PI*2,false);
+          canvasContext.fill();
+          canvasContext.stroke();
+          }
+
+          animationId = requestAnimationFrame(render);
+        };
+      };
+
+      $("#selecter").on("click",function(){
+          $("#selecter").empty();
+          $("#selecter").html("<div id='selecter_2'>Grad color</div>");
+          hue = spectrums[i] +slide;
+      })
+
+      $("#selecter_3").on("click",function(){
+      })
+    </script>
+  </body>
+</html>
